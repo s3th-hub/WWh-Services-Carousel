@@ -1,0 +1,350 @@
+/**
+ * WWH Services Carousel — Stylesheet
+ * Fonts: Manrope (headings) | Inter (body)
+ * Primary: #304792
+ */
+
+/* ─── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+  --wwh-primary:       #304792;
+  --wwh-primary-dark:  #223270;
+  --wwh-primary-light: #4a65c4;
+  --wwh-bg-card:       #ffffff;
+  --wwh-bg-subtle:     #f7f8fc;
+  --wwh-text-heading:  #1a1a2e;
+  --wwh-text-body:     #5a5a72;
+  --wwh-text-light:    #8888a0;
+  --wwh-border:        rgba(48, 71, 146, 0.10);
+  --wwh-shadow-base:   0 4px 20px rgba(48, 71, 146, 0.08);
+  --wwh-shadow-hover:  0 12px 40px rgba(48, 71, 146, 0.20);
+  --wwh-radius-card:   16px;
+  --wwh-radius-btn:    5px;
+  --wwh-transition:    0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --wwh-font-heading:  'Manrope', sans-serif;
+  --wwh-font-body:     'Inter', sans-serif;
+}
+
+/* ─── Wrapper ─────────────────────────────────────────────────────────────── */
+.wwh-sc-wrapper {
+  position: relative;
+  padding: 0 0 56px;
+  box-sizing: border-box;
+  font-family: var(--wwh-font-body);
+}
+
+/* ─── Swiper Overrides ────────────────────────────────────────────────────── */
+.wwh-sc-swiper {
+  overflow: hidden;
+  /* Extra horizontal padding so hover shadows aren't clipped */
+  padding: 16px 4px 24px;
+  box-sizing: border-box;
+}
+
+.wwh-sc-swiper .swiper-wrapper {
+  align-items: stretch; /* equal-height slides */
+}
+
+.wwh-sc-swiper .swiper-slide {
+  height: auto;         /* let flexbox control height */
+  display: flex;
+}
+
+/* ─── Card ────────────────────────────────────────────────────────────────── */
+.wwh-sc-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--wwh-bg-card);
+  border-radius: var(--wwh-radius-card);
+  overflow: hidden;
+  box-shadow: var(--wwh-shadow-base);
+  border: 1px solid var(--wwh-border);
+  transition:
+    transform var(--wwh-transition),
+    box-shadow var(--wwh-transition);
+  will-change: transform, box-shadow;
+}
+
+.wwh-sc-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: var(--wwh-shadow-hover);
+}
+
+/* ─── Image ───────────────────────────────────────────────────────────────── */
+.wwh-sc-image-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.wwh-sc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--wwh-transition);
+  will-change: transform;
+}
+
+.wwh-sc-card:hover .wwh-sc-image {
+  transform: scale(1.08);
+}
+
+/* Dark gradient overlay */
+.wwh-sc-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(48, 71, 146, 0.70) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--wwh-transition);
+}
+
+.wwh-sc-card:hover .wwh-sc-image-overlay {
+  opacity: 1;
+}
+
+/* ─── Body ────────────────────────────────────────────────────────────────── */
+.wwh-sc-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;               /* stretch to fill remaining height */
+  padding: 24px 24px 28px;
+  gap: 12px;
+}
+
+/* ─── Title ───────────────────────────────────────────────────────────────── */
+.wwh-sc-title {
+  font-family: var(--wwh-font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--wwh-text-heading);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.wwh-sc-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--wwh-transition);
+}
+
+.wwh-sc-title a:hover,
+.wwh-sc-title a:focus-visible {
+  color: var(--wwh-primary);
+  outline: none;
+}
+
+/* ─── Excerpt ─────────────────────────────────────────────────────────────── */
+.wwh-sc-excerpt {
+  font-family: var(--wwh-font-body);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--wwh-text-body);
+  margin: 0;
+  flex: 1;               /* pushes button to the bottom */
+
+  /* line-clamp: 3 lines max */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Button ──────────────────────────────────────────────────────────────── */
+.wwh-sc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: auto;      /* always pinned to the bottom of .wwh-sc-body */
+  padding: 10px 20px;
+  background: var(--wwh-primary);
+  color: #ffffff;
+  border-radius: var(--wwh-radius-btn);
+  font-family: var(--wwh-font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition:
+    background var(--wwh-transition),
+    border-color var(--wwh-transition),
+    gap var(--wwh-transition);
+  cursor: pointer;
+  outline-offset: 3px;
+}
+
+.wwh-sc-btn:hover,
+.wwh-sc-btn:focus-visible {
+  background: var(--wwh-primary-dark);
+  gap: 12px;             /* arrow slides right */
+  outline: 2px solid var(--wwh-primary);
+}
+
+.wwh-sc-btn-text {
+  white-space: nowrap;
+}
+
+.wwh-sc-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--wwh-transition);
+}
+
+.wwh-sc-btn:hover .wwh-sc-btn-arrow,
+.wwh-sc-btn:focus-visible .wwh-sc-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ─── Navigation Buttons ──────────────────────────────────────────────────── */
+.wwh-sc-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-calc(50% + 28px)); /* offset for pagination */
+  z-index: 10;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--wwh-primary);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(48, 71, 146, 0.30);
+  transition:
+    background var(--wwh-transition),
+    transform var(--wwh-transition),
+    box-shadow var(--wwh-transition);
+  outline-offset: 3px;
+}
+
+.wwh-sc-prev { left: -8px; }
+.wwh-sc-next { right: -8px; }
+
+.wwh-sc-nav-btn:hover,
+.wwh-sc-nav-btn:focus-visible {
+  background: var(--wwh-primary-dark);
+  box-shadow: 0 6px 24px rgba(48, 71, 146, 0.40);
+  outline: 2px solid var(--wwh-primary);
+}
+
+.wwh-sc-prev:hover { transform: translateY(-calc(50% + 28px)) translateX(-2px); }
+.wwh-sc-next:hover { transform: translateY(-calc(50% + 28px)) translateX(2px); }
+
+.wwh-sc-nav-btn svg { display: block; }
+
+/* ─── Pagination ──────────────────────────────────────────────────────────── */
+.wwh-sc-pagination {
+  position: absolute !important;
+  bottom: 8px !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.wwh-sc-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: var(--wwh-border);
+  opacity: 1;
+  border-radius: 50%;
+  transition: background var(--wwh-transition), width var(--wwh-transition);
+  cursor: pointer;
+}
+
+.wwh-sc-pagination .swiper-pagination-bullet-active {
+  background: var(--wwh-primary) !important;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ─── No Services Fallback ────────────────────────────────────────────────── */
+.wwh-sc-no-services {
+  font-family: var(--wwh-font-body);
+  color: var(--wwh-text-light);
+  text-align: center;
+  padding: 40px 20px;
+  border: 2px dashed var(--wwh-border);
+  border-radius: var(--wwh-radius-card);
+  background: var(--wwh-bg-subtle);
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .wwh-sc-prev { left: -4px; }
+  .wwh-sc-next { right: -4px; }
+
+  .wwh-sc-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .wwh-sc-title {
+    font-size: 1.05rem;
+  }
+
+  .wwh-sc-body {
+    padding: 20px 20px 24px;
+  }
+
+  .wwh-sc-prev { left: 0; }
+  .wwh-sc-next { right: 0; }
+
+  .wwh-sc-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .wwh-sc-nav-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* On narrow screens, give a bit more room */
+  .wwh-sc-wrapper {
+    padding-bottom: 48px;
+  }
+}
+
+/* ─── Reduced-motion support ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wwh-sc-card,
+  .wwh-sc-image,
+  .wwh-sc-image-overlay,
+  .wwh-sc-btn,
+  .wwh-sc-btn-arrow,
+  .wwh-sc-nav-btn,
+  .wwh-sc-pagination .swiper-pagination-bullet {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .wwh-sc-card:hover {
+    transform: none;
+  }
+}
+
+/* ─── High-contrast / forced-colors mode ─────────────────────────────────── */
+@media (forced-colors: active) {
+  .wwh-sc-btn,
+  .wwh-sc-nav-btn {
+    forced-color-adjust: none;
+  }
+}
